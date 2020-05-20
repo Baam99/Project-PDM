@@ -14,7 +14,7 @@ CREATE TABLE userInformation(
     pass VARCHAR(20) 
 )
 
-CREATE TABLE item (
+CREATE TABLE Items (
   itemID INTEGER IDENTITY(101,1) NOT NULL PRIMARY KEY,
   itemName VARCHAR(255) NOT NULL,
   itemType VARCHAR(20),
@@ -22,27 +22,28 @@ CREATE TABLE item (
   itemQuantity INT,
   itemPrice REAL
 );
-CREATE TABLE customers (
+CREATE TABLE Customers (
   id INTEGER IDENTITY(1001,1) NOT NULL PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE
 );
-CREATE TABLE orders (
+CREATE TABLE Orders (
   id INTEGER IDENTITY(10001,1) NOT NULL PRIMARY KEY,
   order_date DATE NOT NULL,
   purchaser INTEGER NOT NULL,
   quantity INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
-  FOREIGN KEY (purchaser) REFERENCES customers(id),
-  FOREIGN KEY (product_id) REFERENCES item(itemID)
+  FOREIGN KEY (purchaser) REFERENCES Customers(id),
+  FOREIGN KEY (product_id) REFERENCES Items(itemID)
 );
 CREATE TABLE Suppliers(
 	supName VARCHAR(30) NOT NULL PRIMARY KEY,
-	supItem VARCHAR(20) NOT NULL,
-    supAddress VARCHAR(30) NOT NULL,
-    supMobile VARCHAR(30) NOT NULL, 
-    supEmail VARCHAR(20) NOT NULL
+	supItem INTEGER NOT NULL,
+  supAddress VARCHAR(30) NOT NULL,
+  supMobile VARCHAR(30) NOT NULL, 
+  supEmail VARCHAR(20) NOT NULL,
+  FOREIGN KEY (supItem) REFERENCES Items(itemID)
 )
 CREATE TABLE Inventory(
 	invenID INT NOT NULL PRIMARY KEY,
@@ -51,5 +52,5 @@ CREATE TABLE Inventory(
 CREATE TABLE Payment(
 	paymentID INT NOT NULL PRIMARY KEY,
 	paymentAmount INT NOT NULL,
-    paymentDate VARCHAR(30) NOT NULL
+  paymentDate DATE NOT NULL
 )
